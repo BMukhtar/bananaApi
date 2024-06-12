@@ -9,12 +9,13 @@ from torchvision import transforms
 
 # Load model (you may want to add error handling if the file doesn't exist)
 # model = torch.load('mode_full.pt', map_location=torch.device('cpu'))
+print("Loading model")
 url = "https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt"  # Replace with the actual URL
-model = torch.hub.load(
-    url
-)
+torch.hub.download_url_to_file('https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt', './tmp/mode_full.pt')
 
+model = torch.load('./tmp/mode_full.pt', map_location=torch.device('cpu'))
 model.eval()
+print("Loading model done")
 
 # Image transformations (consider using a more suitable image size for your model)
 transform = transforms.Compose([
