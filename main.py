@@ -11,9 +11,9 @@ from torchvision import transforms
 # model = torch.load('mode_full.pt', map_location=torch.device('cpu'))
 print("Loading model")
 url = "https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt"  # Replace with the actual URL
-torch.hub.download_url_to_file('https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt', './tmp/mode_full.pt')
+torch.hub.download_url_to_file('https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt', './mode_full_download.pt')
 
-model = torch.load('./tmp/mode_full.pt', map_location=torch.device('cpu'))
+model = torch.load('./mode_full_download.pt', map_location=torch.device('cpu'))
 model.eval()
 print("Loading model done")
 
