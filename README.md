@@ -56,6 +56,10 @@ On the [Koyeb Control Panel](//app.koyeb.com/apps), on the **Overview** tab, cli
 
 You land on the deployment page where you can follow the build of your FastAPI application. Once the build has completed, your application is deployed and you will be able to access it via `<YOUR_APP_NAME>-<YOUR_ORG_NAME>.koyeb.app`.
 
+## Local test
+uvicorn main:app --reload
+curl -X POST http://localhost:8000/predict/ -F "file=@./0-3_17.jpg"
+
 ## Contributing
 
 If you have any questions, ideas or suggestions regarding this application sample, feel free to open an [issue](//github.com//koyeb/example-fastapi/issues) or fork this repository and open a [pull request](//github.com/koyeb/example-fastapi/pulls).
