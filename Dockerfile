@@ -21,7 +21,7 @@ ARG MODEL_URL=https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/
 RUN curl -o mode_full_download.pt ${MODEL_URL}
 
 # Copy the rest of your application
-COPY . /code/
+COPY . .
 
 # Specify the command to run your application
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
