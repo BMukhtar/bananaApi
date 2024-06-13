@@ -13,7 +13,7 @@ import os
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Load model (add error handling if the file doesn't exist)
-local_download_path = './mode_full_download.pt'
+local_download_path = './mode_full.pt'
 try:
     model = torch.load(local_download_path, map_location=torch.device('cpu'))
     model.eval()

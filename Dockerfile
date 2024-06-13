@@ -16,10 +16,6 @@ RUN apt-get update \
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 
-# Download the PyTorch model file (.pt) and save it as 'mode_full_download.pt'
-ARG MODEL_URL=https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt
-RUN curl -o mode_full_download.pt ${MODEL_URL}
-
 # Copy the rest of your application
 COPY . .
 
