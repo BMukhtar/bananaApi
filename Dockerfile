@@ -24,7 +24,7 @@ RUN curl -o mode_full_download.pt ${MODEL_URL}
 COPY . .
 
 # Specify the command to run your application
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # Expose the port the app runs on
 EXPOSE 8000
