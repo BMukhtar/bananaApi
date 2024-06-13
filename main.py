@@ -52,8 +52,12 @@ async def predict(file: UploadFile = File(...)):
 
         _, predicted_idx = torch.max(out, 1)
         logging.info("Prediction successful id: %s", predicted_idx)
-        predicted_class = class_names[predicted_idx.item()]
-        logging.info("Prediction successful class: %s", predicted_class)
+        if predicted_idx.item() > len(class_names) - 1:
+            logging.error("Prediction index out of bounds: %s", predicted_idx.item())
+            predicted_class = "Unknown"
+        else:
+            predicted_class = class_names[predicted_idx.item()]
+            logging.info("Prediction successful class: %s", predicted_class)
 
         return JSONResponse({"predicted_class": predicted_class})
 
