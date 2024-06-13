@@ -6,16 +6,21 @@ from fastapi.responses import JSONResponse
 import torch
 from PIL import Image
 from torchvision import transforms
+import os
 
 # Load model (you may want to add error handling if the file doesn't exist)
 # model = torch.load('mode_full.pt', map_location=torch.device('cpu'))
-print("Loading model")
-url = "https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt"  # Replace with the actual URL
-torch.hub.download_url_to_file('https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt', './mode_full_download.pt')
 
-model = torch.load('./mode_full_download.pt', map_location=torch.device('cpu'))
+local_download_path = './mode_full_download.pt'
+
+if not os.path.exists(local_download_path):
+    print("Downloading model")
+    url = "https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt"  # Replace with the actual URL
+    torch.hub.download_url_to_file('https://media.githubusercontent.com/media/BMukhtar/bananaApi/main/mode_full.pt', './mode_full_download.pt')
+    print("Downloading model done")
+
+model = torch.load(local_download_path, map_location=torch.device('cpu'))
 model.eval()
-print("Loading model done")
 
 # Image transformations (consider using a more suitable image size for your model)
 transform = transforms.Compose([
