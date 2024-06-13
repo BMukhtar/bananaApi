@@ -43,23 +43,29 @@ async def predict(file: UploadFile = File(...)):
             logging.warning("Invalid file type: %s", file.content_type)
             raise HTTPException(status_code=400, detail="File must be an image")
 
-        img = Image.open(file.file)
+        img = Image.open(file.file).convert('RGB')
         img_t = transform(img)
         batch_t = torch.unsqueeze(img_t, 0)
 
         with torch.no_grad():
             out = model(batch_t)
 
-        _, predicted_idx = torch.max(out, 1)
+        predict_proba, predicted_idx = torch.max(torch.nn.functional.softmax(out, dim=1), 1)
+        predict_proba = predict_proba.item()
+        predicted_idx = predicted_idx.item()
+
         logging.info("Prediction successful id: %s", predicted_idx)
-        if predicted_idx.item() > len(class_names) - 1:
-            logging.error("Prediction index out of bounds: %s", predicted_idx.item())
+        if predicted_idx > len(class_names) - 1:
+            logging.error("Prediction index out of bounds: %s", predicted_idx)
+            predicted_class = "Unknown"
+        elif predict_proba < 0.5:
+            logging.warning("Low confidence prediction: %s", predict_proba)
             predicted_class = "Unknown"
         else:
-            predicted_class = class_names[predicted_idx.item()]
+            predicted_class = class_names[predicted_idx]
             logging.info("Prediction successful class: %s", predicted_class)
 
-        return JSONResponse({"predicted_class": predicted_class})
+        return JSONResponse({"predicted_class": predicted_class, 'probability': predict_proba})
 
     except Exception as e:
         logging.error("Error predicting image: %s", e)
