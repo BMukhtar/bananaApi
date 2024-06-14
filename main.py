@@ -58,9 +58,9 @@ async def predict(file: UploadFile = File(...)):
         if predicted_idx > len(class_names) - 1:
             logging.error("Prediction index out of bounds: %s", predicted_idx)
             predicted_class = "Unknown"
-        elif predict_proba < 0.5:
-            logging.warning("Low confidence prediction: %s", predict_proba)
-            predicted_class = "Unknown"
+        # elif predict_proba < 0.5:
+        #     logging.warning("Low confidence prediction: %s", predict_proba)
+        #     predicted_class = "Unknown"
         else:
             predicted_class = class_names[predicted_idx]
             logging.info("Prediction successful class: %s", predicted_class)

@@ -61,7 +61,11 @@ uvicorn main:app --reload
 curl -X POST http://localhost:8000/predict/ -F "file=@./0-3_17.jpg"
 
 ## Docker
+
+### mac build
 docker build -t bmukhtar/banana-public-arm .
+
+### koyeb deploy
 docker build --platform linux/amd64 -t bmukhtar/banana-public .
 docker push bmukhtar/banana-public
 
